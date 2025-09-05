@@ -44,6 +44,9 @@ async function main() {
     } catch {}
   }
 
+  // Ensure metadata is present for downstream logic
+  assert(metadata, 'metadata is required')
+
   // Ensure content is ordered by capture index, then page number if present
   const contentSorted = [...content].sort((a, b) => {
     if (a.index !== b.index) return a.index - b.index
