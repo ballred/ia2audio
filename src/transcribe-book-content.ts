@@ -33,8 +33,8 @@ async function main() {
           metadataMatch?.[1] && metadataMatch?.[2],
           `invalid screenshot filename: ${screenshot}`
         )
-        const index = Number.parseInt(metadataMatch[1]!, 10)
-        const page = Number.parseInt(metadataMatch[2]!, 10)
+        const index = Number.parseInt(metadataMatch![1]!, 10)
+        const page = Number.parseInt(metadataMatch![2]!, 10)
         assert(
           !Number.isNaN(index) && !Number.isNaN(page),
           `invalid screenshot filename: ${screenshot}`
@@ -118,4 +118,3 @@ async function main() {
 }
 
 await main()
-

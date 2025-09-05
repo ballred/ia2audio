@@ -76,8 +76,8 @@ async function main() {
   }
 
   let output = `# ${title}\n\nBy ${authors.join(', ')}\n\n---\n\n## Table of Contents\n\n${metadata.toc
-    .filter((tocItem, index) => tocItem.page !== undefined && index <= lastTocItemIndex)
-    .map((tocItem) => `- [${tocItem.title}](#${tocItem.title.toLowerCase().replaceAll(/[^\da-z]+/g, '-')})`)
+    .filter((tocItem: import('./types').TocItem, index: number) => tocItem.page !== undefined && index <= lastTocItemIndex)
+    .map((tocItem: import('./types').TocItem) => `- [${tocItem.title}](#${tocItem.title.toLowerCase().replaceAll(/[^\da-z]+/g, '-')})`)
     .join('\n')}\n\n---`
 
   for (let i = 0, index = 0; i < metadata.toc.length - 1; i++) {

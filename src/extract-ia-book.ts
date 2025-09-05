@@ -326,7 +326,7 @@ async function captureIaBook(iaId: string, iaUrl?: string) {
     } catch {}
     // Ensure images within the container are complete
     try {
-      await (ctx as any).evaluate(async (sel) => {
+      await (ctx as any).evaluate(async (sel: string) => {
         const container = document.querySelector(sel) as HTMLElement | null
         if (!container) return
         const imgs = Array.from(container.querySelectorAll('img')) as HTMLImageElement[]
@@ -397,7 +397,7 @@ async function captureIaBook(iaId: string, iaUrl?: string) {
   if (!resumeEnv && startPageEnv >= 1) {
     try {
       const desiredLeaf = Math.max(0, startPageEnv - 1)
-      await (ctx as any).evaluate((leaf) => {
+      await (ctx as any).evaluate((leaf: number) => {
         const w: any = window as any
         const br: any = w.br || (w.BookReader && (w.BookReader.instances?.[0] || w.BookReader.instance))
         if (!br) return
