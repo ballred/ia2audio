@@ -12,11 +12,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          # Note: Do not enable pnpm cache here; it requires pnpm preinstalled and fails early.
       - name: Enable Corepack (pnpm)
         run: |
           corepack enable
           corepack prepare pnpm@9.12.2 --activate
+      - run: pnpm -v
       - run: pnpm install
       - run: npx playwright install chromium
       - run: pnpm -s typecheck
