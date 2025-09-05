@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Local env
+.env
+.env.*
+
+# Build/output
+out/
+dist/
+coverage/
+
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+*.log
+
+# Generated media
+**/pages/*.png
+**/audio/*.m4a
+**/audio/*.m4b
+**/*.aiff
+**/*.flac
+

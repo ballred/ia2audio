@@ -1,0 +1,31 @@
+{
+  "name": "ia2audio",
+  "version": "0.1.0",
+  "private": false,
+  "license": "Apache-2.0",
+  "description": "Internet Archive → OCR (OpenAI Vision) → Markdown → TXT/EPUB → Edge TTS → M4B",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "playwright:install": "npx playwright install chromium",
+    "capture": "tsx src/extract-ia-book.ts",
+    "ocr": "tsx src/transcribe-book-content.ts",
+    "export": "tsx src/export-book-markdown.ts",
+    "all": "pnpm capture && pnpm ocr && pnpm export",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "delay": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "globby": "^14.0.2",
+    "openai-fetch": "^0.8.0",
+    "playwright": "^1.47.0",
+    "tsx": "^4.19.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  }
+}
+
