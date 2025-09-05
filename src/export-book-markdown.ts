@@ -46,6 +46,7 @@ async function main() {
 
   // Ensure metadata is present for downstream logic
   assert(metadata, 'metadata is required')
+  const md = metadata!
 
   // Ensure content is ordered by capture index, then page number if present
   const contentSorted = [...content].sort((a, b) => {
@@ -55,12 +56,12 @@ async function main() {
     return ap - bp
   })
 
-  const title = metadata.meta.title
-  const authors = metadata.meta.authorList
+  const title = md.meta.title
+  const authors = md.meta.authorList
 
   function computeNextIndex(currentIndex: number, tocIndex: number) {
-    const tocItem = metadata.toc[tocIndex]!
-    const nextTocItem = metadata.toc[tocIndex + 1]!
+    const tocItem = md.toc[tocIndex]!
+    const nextTocItem = md.toc[tocIndex + 1]!
     if (!nextTocItem) return contentSorted.length
     if (nextTocItem.page === undefined) return contentSorted.length
     let nextIndex = contentSorted.findIndex((c) => c.page >= nextTocItem.page!)
@@ -71,20 +72,20 @@ async function main() {
   }
 
   let lastTocItemIndex = 0
-  for (let i = 0, index = 0; i < metadata.toc.length - 1; i++) {
-    const tocItem = metadata.toc[i]!
+  for (let i = 0, index = 0; i < md.toc.length - 1; i++) {
+    const tocItem = md.toc[i]!
     if (tocItem.page === undefined) continue
     const nextIndex = computeNextIndex(index, i)
     lastTocItemIndex = i
   }
 
-  let output = `# ${title}\n\nBy ${authors.join(', ')}\n\n---\n\n## Table of Contents\n\n${metadata.toc
+  let output = `# ${title}\n\nBy ${authors.join(', ')}\n\n---\n\n## Table of Contents\n\n${md.toc
     .filter((tocItem: import('./types').TocItem, index: number) => tocItem.page !== undefined && index <= lastTocItemIndex)
     .map((tocItem: import('./types').TocItem) => `- [${tocItem.title}](#${tocItem.title.toLowerCase().replaceAll(/[^\da-z]+/g, '-')})`)
     .join('\n')}\n\n---`
 
-  for (let i = 0, index = 0; i < metadata.toc.length - 1; i++) {
-    const tocItem = metadata.toc[i]!
+  for (let i = 0, index = 0; i < md.toc.length - 1; i++) {
+    const tocItem = md.toc[i]!
     if (tocItem.page === undefined) continue
 
     const nextIndex = computeNextIndex(index, i)
